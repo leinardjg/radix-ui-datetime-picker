@@ -22,12 +22,12 @@ function TimePicker(props : TimePickerProps) {
     if (!props.selectedDateTime) {
         return <div className="w-full h-full">
         <Flex justify="center">
-            <Text size="2">
+            <Text size="2" weight="medium">
                 { props.label }
             </Text>
         </Flex>
-        <div className="overflow-scroll flex justify-center items-center">
-            <Text size="2">
+        <div className="overflow-auto w-full h-full flex justify-center items-center">
+            <Text size="2" mt="9">
                 No date selected.
             </Text>
         </div>
@@ -54,7 +54,7 @@ function TimePicker(props : TimePickerProps) {
             minimumIntegerDigits: 2
         })} ${time.getHours() <= 11 ? "AM" : "PM"}`;
         buttons.push(
-            <Button variant="outline" radius="full">
+            <Button variant="outline" radius="full" onClick={() => props.onChange(time)}>
                 {
                     label
                 }
@@ -65,11 +65,11 @@ function TimePicker(props : TimePickerProps) {
     return (
         <div className="w-full h-full">
             <Flex justify="center">
-                <Text size="2">
+                <Text size="2" weight="medium">
                     { props.label }
                 </Text>
             </Flex>
-            <div className="overflow-scroll">
+            <div className="overflow-auto">
                 <Grid gap={"1"} columns={"2"}>
                     { buttons }
                 </Grid>
@@ -157,7 +157,6 @@ function DatePicker(props : DatePickerProps) {
         )
         
         const weekday = new Date(props.year, props.month, 1).getDay();
-        console.log(weekday)
         for (let i=0; i < weekday; i++) {
             days.push(<div key={i + 31} />)
         }
@@ -226,7 +225,7 @@ function DatePicker(props : DatePickerProps) {
     }
 
     return (
-        <div className="w-full">
+        <div>
             <Flex justify="between" align="center">
                 <Button variant="ghost" onClick={prevMonthHandler}>Prev</Button>
                     <div>
@@ -236,7 +235,7 @@ function DatePicker(props : DatePickerProps) {
                     </div>
                 <Button variant="ghost" onClick={nextMonthHandler}>Next</Button>
             </Flex>
-            <Grid columns="7" gap={"1"}>
+            <Grid columns="7" gapX="6" gapY="2">
                 {
                     spawnDays()
                 }
@@ -277,7 +276,6 @@ export default function DateTimePicker(props : DateTimePickerProps) {
 
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
     const [timeOptions, setTimeOptions] = useState<TimeOptions>({});
-    const [time, setTime] = useState<TimeOptions>({});
     const [monthYear, setMonthYear] = useState<number[]>([props.month ?? new Date(Date.now()).getMonth(), props.year ?? new Date().getFullYear()]);
 
     const handleChange = (date : Date) => {
@@ -287,7 +285,7 @@ export default function DateTimePicker(props : DateTimePickerProps) {
 
     return (<>
     
-        <Flex justify="between" gap="2" direction={{
+        <Flex justify="between" gap="7" direction={{
             initial: "column",
             sm: "row"
         }}>

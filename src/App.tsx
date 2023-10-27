@@ -14,11 +14,11 @@ function App() {
           <Flex justify="center" align="center" mb="6">
             <Button variant="ghost">
               {
-                date?.toDateString() ?? "Select a date"
+                date?.toLocaleString() ?? "Select a date"
               }
             </Button>
           </Flex>
-          <DateTimePicker timeLabel="Available Times" label="Select date and time" dateTimePickerOptions={{
+          <DateTimePicker timeLabel="Available Times" label="Select date and time" onChange={setDate} dateTimePickerOptions={{
             timeOptions: {
               from: 9 * 60,
               to: 21 * 60,
