@@ -14,12 +14,25 @@ interface TimePickerProps {
     label : string;
 
     selectedDateTime : Date | null;
-    setSelectedDateTime : React.Dispatch<React.SetStateAction<Date | null>>;
+    onChange : (date : Date) => void;
 }
 
 function TimePicker(props : TimePickerProps) {
 
-    if (!props.selectedDateTime) return <></>
+    if (!props.selectedDateTime) {
+        return <div className="w-full h-full">
+        <Flex justify="center">
+            <Text size="2">
+                { props.label }
+            </Text>
+        </Flex>
+        <div className="overflow-scroll flex justify-center items-center">
+            <Text size="2">
+                No date selected.
+            </Text>
+        </div>
+    </div>
+    }
 
     let from = props.timeOptions?.from ? props.timeOptions.from * 60 * 1000 : 0;
     const to = props.timeOptions?.to ? props.timeOptions.to * 60 * 1000 : 82800000;
@@ -50,7 +63,7 @@ function TimePicker(props : TimePickerProps) {
     })
 
     return (
-        <div>
+        <div className="w-full h-full">
             <Flex justify="center">
                 <Text size="2">
                     { props.label }
@@ -213,14 +226,14 @@ function DatePicker(props : DatePickerProps) {
     }
 
     return (
-        <div>
+        <div className="w-full">
             <Flex justify="between" align="center">
                 <Button variant="ghost" onClick={prevMonthHandler}>Prev</Button>
-                <div>
-                    <Text size="2" weight="medium">
-                        { monthLabel } { props.year }
-                    </Text>
-                </div>
+                    <div>
+                        <Text size="2" weight="medium">
+                            { monthLabel } { props.year }
+                        </Text>
+                    </div>
                 <Button variant="ghost" onClick={nextMonthHandler}>Next</Button>
             </Flex>
             <Grid columns="7" gap={"1"}>
@@ -244,6 +257,8 @@ interface DateTimePickerProps {
 
     timeFormat? : string;
 
+    onChange? : (date : Date) => void;
+
     /**
      * An integer [0, 11] representing the month to display. If null, today.
      */
@@ -265,54 +280,32 @@ export default function DateTimePicker(props : DateTimePickerProps) {
     const [time, setTime] = useState<TimeOptions>({});
     const [monthYear, setMonthYear] = useState<number[]>([props.month ?? new Date(Date.now()).getMonth(), props.year ?? new Date().getFullYear()]);
 
-    const PopOver =
-        <div>
-            <Flex justify="between" gap="2" direction={{
-                initial: "column",
-                sm: "row"
-            }}>
-                <DatePicker 
-                    month={monthYear[0]} 
-                    year={monthYear[1]}
-                    setMonthYear={setMonthYear}
-                    selectedDateTime={selectedDateTime} 
-                    setSelectedDateTime={setSelectedDateTime}
-                    dateTimePickerOptions={props.dateTimePickerOptions}
-                    setTimeOptions={setTimeOptions}
-                    />
-                <TimePicker
-                    label={props.timeLabel ?? ""}
-                    timeOptions={timeOptions}
-                    selectedDateTime={selectedDateTime} 
-                    setSelectedDateTime={setSelectedDateTime} />
-            </Flex>
-
-        </div>
+    const handleChange = (date : Date) => {
+        setSelectedDateTime(date);
+        if (props.onChange) props.onChange(date);
+    }
 
     return (<>
     
-        <div className="items-center">
-                <Popover.Root>
-
-                    <Popover.Trigger>
-
-                        <Button variant="outline">
-                            {
-                                selectedDateTime?.toLocaleDateString() ? 
-                                    selectedDateTime.toLocaleDateString() : props.label
-                            }
-                        </Button>
-
-                    </Popover.Trigger>
-
-                    <Popover.Content>
-
-                        { PopOver }
-
-                    </Popover.Content>
-
-                </Popover.Root>
-        </div>
+        <Flex justify="between" gap="2" direction={{
+            initial: "column",
+            sm: "row"
+        }}>
+            <DatePicker 
+                month={monthYear[0]} 
+                year={monthYear[1]}
+                setMonthYear={setMonthYear}
+                selectedDateTime={selectedDateTime} 
+                setSelectedDateTime={setSelectedDateTime}
+                dateTimePickerOptions={props.dateTimePickerOptions}
+                setTimeOptions={setTimeOptions}
+                />
+            <TimePicker
+                label={props.timeLabel ?? ""}
+                timeOptions={timeOptions}
+                selectedDateTime={selectedDateTime}
+                onChange={handleChange} />
+        </Flex>
     
     </>)
 }
