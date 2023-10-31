@@ -22,7 +22,7 @@ function App() {
             timeOptions: {
               from: 9 * 60,
               to: 21 * 60,
-              interval: 60
+              interval: 30
             },
             sunday: {
               from: 10 * 60,

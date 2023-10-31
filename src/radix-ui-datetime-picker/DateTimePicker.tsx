@@ -1,4 +1,5 @@
-import { Button, Flex, Grid, Popover, Text } from "@radix-ui/themes";
+import { Button, Flex, Grid, IconButton, Text } from "@radix-ui/themes";
+import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { DateTimePickerOptions, TimeOptions } from "./DateTimePickerUtils";
 
@@ -21,13 +22,13 @@ function TimePicker(props : TimePickerProps) {
 
     if (!props.selectedDateTime) {
         return <div className="w-full h-full">
-        <Flex justify="center">
+        <Flex justify="center" py="3">
             <Text size="2" weight="medium">
                 { props.label }
             </Text>
         </Flex>
-        <div className="overflow-auto w-full h-full flex justify-center items-center">
-            <Text size="2" mt="9">
+        <div className="w-full flex justify-center items-center h-full">
+            <Text size="2">
                 No date selected.
             </Text>
         </div>
@@ -63,13 +64,13 @@ function TimePicker(props : TimePickerProps) {
     })
 
     return (
-        <div className="w-full h-full">
-            <Flex justify="center">
+        <div className="h-full w-full overflow-hidden">
+            <Flex justify="center" py="3">
                 <Text size="2" weight="medium">
                     { props.label }
                 </Text>
             </Flex>
-            <div className="overflow-auto">
+            <div className="overflow-auto h-[85%]">
                 <Grid gap={"1"} columns={"2"}>
                     { buttons }
                 </Grid>
@@ -132,27 +133,27 @@ function DatePicker(props : DatePickerProps) {
 
         days.push(
             [
-                <Flex justify="center" align="center">
+                <div className="flex justify-center items-center h-8 w-8">
                     <Text size="1">SUN</Text>
-                </Flex>,
-                <Flex justify="center" align="center">
+                </div>,
+                <div className="flex justify-center items-center h-8 w-8">
                     <Text size="1">MON</Text>
-                </Flex>,
-                <Flex justify="center" align="center">
+                </div>,
+                <div className="flex justify-center items-center h-8 w-8">
                     <Text size="1">TUE</Text>
-                </Flex>,
-                <Flex justify="center" align="center">
+                </div>,
+                <div className="flex justify-center items-center h-8 w-8">
                     <Text size="1">WED</Text>
-                </Flex>,
-                <Flex justify="center" align="center">
+                </div>,
+                <div className="flex justify-center items-center h-8 w-8">
                     <Text size="1">THU</Text>
-                </Flex>,
-                <Flex justify="center" align="center">
+                </div>,
+                <div className="flex justify-center items-center h-8 w-8">
                     <Text size="1">FRI</Text>
-                </Flex>,
-                <Flex justify="center" align="center">
+                </div>,
+                <div className="flex justify-center items-center h-8 w-8">
                     <Text size="1">SAT</Text>
-                </Flex>
+                </div>
             ]
         )
         
@@ -225,17 +226,21 @@ function DatePicker(props : DatePickerProps) {
     }
 
     return (
-        <div>
-            <Flex justify="between" align="center">
-                <Button variant="ghost" onClick={prevMonthHandler}>Prev</Button>
+        <div className="min-w-fit">
+            <Flex justify="between" align="center" py="3">
+                <IconButton variant="ghost" onClick={prevMonthHandler}>
+                    <ChevronLeftIcon />
+                </IconButton>
                     <div>
                         <Text size="2" weight="medium">
                             { monthLabel } { props.year }
                         </Text>
                     </div>
-                <Button variant="ghost" onClick={nextMonthHandler}>Next</Button>
+                <IconButton variant="ghost" onClick={nextMonthHandler}>
+                    <ChevronRightIcon />
+                </IconButton>
             </Flex>
-            <Grid columns="7" gapX="6" gapY="2">
+            <Grid columns="7" gapX="3" gapY="2">
                 {
                     spawnDays()
                 }
@@ -284,26 +289,30 @@ export default function DateTimePicker(props : DateTimePickerProps) {
     }
 
     return (<>
+
+        <div className="md:h-[275px] md:w-[500px]">
     
-        <Flex justify="between" gap="7" direction={{
-            initial: "column",
-            sm: "row"
-        }}>
-            <DatePicker 
-                month={monthYear[0]} 
-                year={monthYear[1]}
-                setMonthYear={setMonthYear}
-                selectedDateTime={selectedDateTime} 
-                setSelectedDateTime={setSelectedDateTime}
-                dateTimePickerOptions={props.dateTimePickerOptions}
-                setTimeOptions={setTimeOptions}
-                />
-            <TimePicker
-                label={props.timeLabel ?? ""}
-                timeOptions={timeOptions}
-                selectedDateTime={selectedDateTime}
-                onChange={handleChange} />
-        </Flex>
+            <Flex justify="between" gap="4" direction={{
+                initial: "column",
+                sm: "row"
+            }} height="100%">
+                <DatePicker 
+                    month={monthYear[0]} 
+                    year={monthYear[1]}
+                    setMonthYear={setMonthYear}
+                    selectedDateTime={selectedDateTime} 
+                    setSelectedDateTime={setSelectedDateTime}
+                    dateTimePickerOptions={props.dateTimePickerOptions}
+                    setTimeOptions={setTimeOptions}
+                    />
+                <TimePicker
+                    label={props.timeLabel ?? ""}
+                    timeOptions={timeOptions}
+                    selectedDateTime={selectedDateTime}
+                    onChange={handleChange} />
+            </Flex>
+            
+        </div>
     
     </>)
 }
