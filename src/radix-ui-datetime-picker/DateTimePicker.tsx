@@ -21,7 +21,7 @@ interface TimePickerProps {
 function TimePicker(props : TimePickerProps) {
 
     if (!props.selectedDateTime) {
-        return <div className="w-full h-full">
+        return <div className="w-full h-full overflow-hidden">
         <Flex justify="center" py="3">
             <Text size="2" weight="medium">
                 { props.label }
