@@ -60,6 +60,11 @@ export default function TimePicker(props : TimePickerProps) {
         from += interval;
     }
 
+    function onClickHandler(date : Date) {
+        if (!context.onDateChange) return;
+        context.onDateChange(date);
+    }
+
     timeSlots.forEach(timeSlot => {
         let date : Date;
         if (!context.selectedDate) date = new Date();
@@ -71,10 +76,7 @@ export default function TimePicker(props : TimePickerProps) {
         const timeLabel = minutesToHHMM12(timeSlot);
 
         buttons.push(
-            <Button variant="outline" radius="full" onClick={() => {
-                    if (!context.onDateChange) return;
-                    context.onDateChange(date);
-                }}>
+            <Button variant="outline" radius="full" onClick={() => {onClickHandler(date)}}>
                 {
                     `${timeLabel.hour.toString()}:${timeLabel.minute.toString().padEnd(2, "0")} ${timeLabel.period}`
                 }

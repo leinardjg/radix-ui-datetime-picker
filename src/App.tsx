@@ -78,7 +78,7 @@ return (
 
 				<Popover.Content>
 					<DateTimePicker 
-						currentDate={new Date()}
+						currentDate={date}
 						onDateChange={setDate}
 						timePickerLabel="Available Times"
 						dateTimePickerOptions={{

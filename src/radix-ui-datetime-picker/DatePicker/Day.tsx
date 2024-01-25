@@ -19,8 +19,14 @@ export function Day(props : DayProps) {
         return <div 
             onClick={onClickHandler}
             className={`rounded-md flex justify-center items-center hover:bg-indigo3 cursor-pointer h-8 w-8 
-                ${context.selectedDate?.getTime() == thisDate.getTime() ? "bg-indigo3 text-indigo11" : "" }`}>
-            { props.day }
+                ${context.selectedDate?.getTime() === thisDate.getTime() ? "bg-indigo3 text-indigo11" : "" }`}>
+                    <Text weight={
+                        context.currentDate?.getDate() === thisDate.getDate() &&
+                        context.currentDate?.getMonth() === thisDate.getMonth() &&
+                        context.currentDate?.getFullYear() === thisDate.getFullYear() ? "bold" : "regular"
+                    }>
+                        { props.day }
+                    </Text>
         </div>
     }
 
