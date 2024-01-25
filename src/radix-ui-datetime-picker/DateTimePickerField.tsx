@@ -1,36 +1,39 @@
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Button, Popover, TextField } from "@radix-ui/themes";
 import DateTimePicker from "./DateTimePicker";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface DateTimePickerFieldProps {
 
     /**
      * Date state to be reflected in the field.
      */
-    date : Date;
+    date? : Date;
 
     /**
-     * Date state setter.
+     * Handler for date change.
      */
-    setDate : Dispatch<SetStateAction<Date>>;
+    onDateChange? : (date : Date) => void;
 }
 
 export default function DateTimePickerField(props : DateTimePickerFieldProps) {
+
+    const [displayedDate, setDisplayedDate] = useState<Date>(props.date ?? new Date());
+
     return <>
     
     <Popover.Root>
 
         <Popover.Trigger>
             <TextField.Root>
-                <TextField.Input value={props.date.toLocaleString("en-GB", {
+                <TextField.Input value={displayedDate.toLocaleString("en-GB", {
                     day: "numeric",
                     month: "short",
                     year: "numeric",
                     hour: "numeric",
                     minute: "numeric",
                     second: undefined
-                })} />
+                })} onChange={() => {}} />
                 <TextField.Slot pr="0">
                     <Button variant="soft">
                     <CalendarIcon />
@@ -41,8 +44,11 @@ export default function DateTimePickerField(props : DateTimePickerFieldProps) {
 
         <Popover.Content>
             <DateTimePicker 
-                currentDate={props.date}
-                onDateChange={props.setDate}
+                currentDate={displayedDate}
+                onDateChange={date => {
+                    setDisplayedDate(date);
+                    if (props.onDateChange) props.onDateChange(date);
+                }}
                 timePickerLabel="Available Times"
                 dateTimePickerOptions={{
                     timeOptions: {

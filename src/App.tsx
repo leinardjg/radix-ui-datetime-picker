@@ -15,7 +15,7 @@ return (
 
 		<div>
 			<Flex justify="center" align="center" mb="6">
-				<DateTimePickerField date={date} setDate={setDate} />
+				<DateTimePickerField date={date} onDateChange={setDate} />
 			</Flex>
 		</div>
 	</div>
