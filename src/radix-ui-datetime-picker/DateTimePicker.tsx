@@ -7,6 +7,7 @@ import DateTimePickerContext from "./contexts/DateTimePickerContext";
 
 interface DateTimePickerProps {
     dateTimePickerOptions? : DateTimePickerOptions;
+    timePickerLabel? : string
 
     currentDate : Date;
     onDateChange : (date : Date) => void | Dispatch<SetStateAction<Date>>;
@@ -24,8 +25,9 @@ export default function DateTimePicker(props : DateTimePickerProps) {
                 currentDate: props.currentDate,
                 onDateChange: props.onDateChange,
                 viewDate: props.currentDate,
+                dateTimePickerOptions: props.dateTimePickerOptions,
                 selectedDate: selectedDate,
-                setSelectedDate: setSelectedDate
+                setSelectedDate: setSelectedDate,
             }}>
 
                 <Flex justify="between" gap="4" direction={{
@@ -35,7 +37,7 @@ export default function DateTimePicker(props : DateTimePickerProps) {
 
                     <DatePicker />
 
-                    <TimePicker />
+                    <TimePicker timePickerLabel={props.timePickerLabel} />
 
                 </Flex>
 

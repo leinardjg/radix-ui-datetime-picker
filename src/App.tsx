@@ -80,6 +80,22 @@ return (
 					<DateTimePicker 
 						currentDate={new Date()}
 						onDateChange={setDate}
+						timePickerLabel="Available Times"
+						dateTimePickerOptions={{
+							timeOptions: {
+								from: {
+									hour: 9,
+									minute: 0,
+									period: "AM"
+								},
+								to: {
+									hour: 10,
+									minute: 30,
+									period: "PM"
+								},
+								interval: 15
+							}
+						}}
 						/>
 				</Popover.Content>
 				

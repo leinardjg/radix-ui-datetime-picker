@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { DateTimePickerOptions } from "../types/options";
 
 interface DateTimePickerContextType {
     currentDate? : Date;
@@ -8,6 +9,8 @@ interface DateTimePickerContextType {
 
     selectedDate?: Date;
     setSelectedDate? : (date : Date) => void;
+
+    dateTimePickerOptions? : DateTimePickerOptions
 }
 
 const DateTimePickerContext = createContext<DateTimePickerContextType>({

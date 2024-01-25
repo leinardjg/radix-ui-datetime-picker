@@ -1,14 +1,16 @@
+import { HHMM12, HHMM24 } from "../utils/TimeUtils";
+
 export interface DateTimeRange {
     from : Date;
     to : Date;
 }
 
 export interface TimeOptions {
-    from? : number;
-    to? : number;
+    from? : HHMM12;
+    to? : HHMM12;
 
     /**
-     * Number in milliseconds.
+     * Number in minutes.
      */
     interval? : number;
 }
