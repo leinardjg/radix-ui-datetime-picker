@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# Radix DateTimePicker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple Date picker using [Radix](https://www.radix-ui.com) and [Tailwind](https://tailwindcss.com).
 
-## Available Scripts
+<img src="https://s6.gifyu.com/images/S8jFj.gif" width="512" />
 
-In the project directory, you can run:
+## Dependencies
 
-### `npm start`
+- [Radix Themes](https://www.npmjs.com/package/@radix-ui/themes)
+- [Radix Icons](https://www.npmjs.com/package/@radix-ui/react-icons)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Usage
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+function myFunction (date : Date) { ... }
+<DateTimePicker onChange={myFunction} />
+```
 
-### `npm test`
+## Props
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| prop                   | type                  | description                                                                  |
+|------------------------|-----------------------|------------------------------------------------------------------------------|
+| `onChange?`               | `(date : Date) => void` | Callback on value change.                                                    |
+| `timeLabel?`             | `string`                | TimePicker label.                                                            |
+| `month?`                 | `number`                | Default month index [0, 11] to display. Displays current month if undefined. |
+| `year?`                  | `number`                | Default year to display. Displays current year if undefined.                 |
+| `dateTimePickerOptions?` | `DateTimePickerOptions` | Time options for the days.                                                   |
 
-### `npm run build`
+## DateTimePickerOptions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+DateTimePicker accepts a `DateTimePickerOption` prop to specify which times choices to display for each day. Also allows for different `TimeOptions` for specific days of the week. Default is 12am to 10pm with 1 hour intervals.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+|              | type        | description                                        |
+|--------------|-------------|----------------------------------------------------|
+| `timeOptions?` | `TimeOptions` | TimeOptions for every day. Default if null.        |
+| `monday?`      | `TimeOptions` | TimeOptions for Mondays. `timeOptions` if null.    |
+| `tuesday?`     | `TimeOptions` | TimeOptions for Tuesdays. `timeOptions` if null.   |
+| `wednesday?`   | `TimeOptions` | TimeOptions for Wednesdays. `timeOptions` if null. |
+| `thursday?`    | `TimeOptions` | TimeOptions for Thursdays. `timeOptions` if null.  |
+| `friday?`      | `TimeOptions` | TimeOptions for Fridays. `timeOptions` if null.    |
+| `saturday?`    | `TimeOptions` | TimeOptions for Saturdays. `timeOptions` if null.  |
+| `sunday?`      | `TimeOptions` | TimeOptions for Sundays. `timeOptions` if null.    |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## TimePickerOptions
 
-### `npm run eject`
+Defines when the `TimePicker` should start `from` and end `to`, of `interval` intervals.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+|           | type   | description                      |
+|-----------|--------|----------------------------------|
+| `from?`     | `number` | Number in minutes from midnight. |
+| `to?`       | `number` | Number in minutes from midnight. |
+| `interval?` | `number` | Number in minutes.               |
