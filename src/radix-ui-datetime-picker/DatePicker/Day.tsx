@@ -40,8 +40,6 @@ export function Days() {
     const numberOfDays = new Date(context.viewDate.getFullYear(), context.viewDate.getMonth() + 1, 0).getDate() + 1;
     const days = [];
 
-    console.log(context.viewDate);
-
     days.push(
         [
             <div className="flex justify-center items-center h-8 w-8" key="sun">

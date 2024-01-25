@@ -8,10 +8,7 @@ export default function DatePicker() {
 
     const context = useContext(DateTimePickerContext);
     const [viewDate, setViewDate] = useState<Date>(context.viewDate);
-    const [selectedDate, setSelectedDate] = useState<Date>();
 
-    context.selectedDate = selectedDate;
-    context.setSelectedDate = setSelectedDate;
     context.viewDate = viewDate;
 
     function prevMonthHandler() {
